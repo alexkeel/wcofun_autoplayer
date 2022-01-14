@@ -1,15 +1,23 @@
+var autoplayEnabled = false
 
-function onEndOfVideo()
-{
-  console.log("Video ended");
+chrome.storage.sync.set({enableAutoPlay});
+
+// Restores checkbox state using the preferences stored in chrome.storage.sync
+function restoreOptions() {
+    // Use default value = false.
+    chrome.storage.sync.get({
+        enableAutoPlay: false
+    }, function (items) {
+        document.getElementById('enableAutoPlay').checked = items.value;
+    });
 }
-
 
 // always waits the document to be loaded when shown
 document.addEventListener('DOMContentLoaded', function()
 {
+  restoreOptions()
   // Initialize button with user's preferred color
-  var autoplayEnabled = document.getElementById("enableAutoPlay");
+  autoplayEnabled = document.getElementById("enableAutoPlay");
   // opens a communication between scripts
   var port = chrome.runtime.connect();
 
@@ -19,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function()
 
     if (autoplayEnabled.checked)
     {
+        enableAutoPlay = true
         // sends a message throw the communication port
         port.postMessage({
           'from': 'popup',
@@ -27,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function()
     }
     else
     {
+        enableAutoPlay = false
         // sends a message throw the communication port
         port.postMessage({
           'from': 'popup',
