@@ -1,4 +1,5 @@
 // background.js
+chrome.storage.sync.set({"isAutoplayEnabled": false})
 
 // opens a communication port
 chrome.runtime.onConnect.addListener(function(port)

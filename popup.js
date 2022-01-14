@@ -1,15 +1,11 @@
-var isAutoplayEnabled = false
-
-chrome.storage.sync.set({isAutoplayEnabled});
-
 // Restores checkbox state using the preferences stored in chrome.storage.sync
-function restoreOptions() {
-    // Use default value = false.
-    chrome.storage.sync.get({
-        enableAutoPlay: false
-    }, function (items) {
-        document.getElementById('enableAutoPlay').checked = items.value;
-    });
+function restoreOptions()
+{
+  console.log("Restoring options")
+  chrome.storage.sync.get("isAutoplayEnabled", (result) => {
+    document.getElementById('enableAutoPlay').checked = result.isAutoplayEnabled;
+    console.log(enableAutoPlay.isAutoplayEnabled)
+  });
 }
 
 // always waits the document to be loaded when shown
@@ -27,7 +23,11 @@ document.addEventListener('DOMContentLoaded', function()
 
     if (autoplayEnabled.checked)
     {
-        enableAutoPlay = true
+
+      chrome.storage.sync.set({"isAutoplayEnabled": true}, async () =>
+      {
+        console.log("Autoplay enabled")
+      })
         // sends a message throw the communication port
         port.postMessage({
           'from': 'popup',
@@ -36,7 +36,9 @@ document.addEventListener('DOMContentLoaded', function()
     }
     else
     {
-        enableAutoPlay = false
+        chrome.storage.sync.set({"isAutoplayEnabled": false}, async () => {
+          console.log("Autoplay disabled")
+        })
         // sends a message throw the communication port
         port.postMessage({
           'from': 'popup',
