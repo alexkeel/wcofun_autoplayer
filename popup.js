@@ -1,6 +1,6 @@
-var autoplayEnabled = false
+var isAutoplayEnabled = false
 
-chrome.storage.sync.set({enableAutoPlay});
+chrome.storage.sync.set({isAutoplayEnabled});
 
 // Restores checkbox state using the preferences stored in chrome.storage.sync
 function restoreOptions() {

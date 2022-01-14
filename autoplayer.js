@@ -1,13 +1,16 @@
 // background.js
 
-chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-  var currTab = tabs[0];
-  if (currTab)
+// opens a communication port
+chrome.runtime.onConnect.addListener(function(port)
+{
+  // listen for every message passing throw it
+  port.onMessage.addListener(function(o)
   {
-    // opens a communication port
-    chrome.runtime.onConnect.addListener(function(port) {
-      // listen for every message passing throw it
-      port.onMessage.addListener(function(o) {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs)
+    {
+      var currTab = tabs[0];
+      if (currTab)
+      {
         // if the message comes from the popup
         if (o.from && o.from === 'popup' && o.start && o.start === 'Y')
         {
@@ -22,7 +25,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         {
 
         }
-      });
+      }
     });
-  }
+  });
 });
