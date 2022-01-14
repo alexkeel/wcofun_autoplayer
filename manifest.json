@@ -1,0 +1,6 @@
+{
+  "name": "WCO Autoplayer",
+  "description": "Adds autoplay functionality to WCO.tv",
+  "version": "1.0",
+  "manifest_version": 3
+}
