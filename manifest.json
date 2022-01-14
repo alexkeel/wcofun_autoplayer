@@ -1,13 +1,17 @@
 {
   "name": "WCO Autoplayer",
-  "description": "Adds autoplay functionality to WCO.tv",
+  "description": "Adds autoplay functionality to https://www.wcofun.com/",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
     "service_worker": "autoplayer.js"
   },
-
-  "permissions": ["storage"],
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "https://www.wcofun.com/",
+    "https://www.wcofun.com/*"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -17,14 +21,10 @@
       "128": "/images/icon128.png"
     }
   },
-
   "icons": {
     "16": "/images/icon16.png",
     "32": "/images/icon32.png",
     "48": "/images/icon48.png",
     "128": "/images/icon128.png"
-  },
-
-  "permissions": ["storage", "activeTab", "scripting"]
-
+  }
 }
